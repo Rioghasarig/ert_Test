@@ -1,0 +1,2 @@
+#ignore files produced by compilations
+*.o *.so iri2016/iri iri2016/run-iri
