@@ -1,6 +1,4 @@
-# IRI 2016
-
-##Instructions
+Instructions
 
  1. Compile the program run 'make'. This compiles both the shared library libiri.so and the C interface run-iri.
  2. Execute the run-iri program and input the parameters to produce the edp.dat file containing the
