@@ -34,7 +34,7 @@ int col_num= 0;
 // appropriately
 void advance()
 {
-  if(cur_char = EOF) {
+  if(cur_char == EOF) {
     fprintf(stderr, "Attempted to read past end of file");
     exit(EXIT_FAILURE);
   }
@@ -120,7 +120,6 @@ void read_date(table_entry* entry)
   if(cur_char != '.') {
     report_error("Expected '.' to follow month");
   }
-  read_int(&entry->month);
   advance();
   read_int(&entry->day);
 }
@@ -135,18 +134,20 @@ void read_ddd(table_entry* entry)
   if(cur_char != ')') {
     report_error("Expected ')'");
   }
+  advance();
 }
 void read_time(table_entry* entry)
 {
   read_int(&entry->hour);
-  if(cur_char != ';') {
-    report_error("Expected ':'");
+  if(cur_char != ':') {
+    report_error("Expected  after hour ':'");
   }
   advance();
   read_int(&entry->minute);
   if(cur_char != ':') {
-    report_error("Expected ':'");
+    report_error("Expected after minute ':'");
   }
+  advance();
   read_int(&entry->second);
 }
 
@@ -171,7 +172,7 @@ void read_line(table_entry* entry) {
 
   read_int(&entry->cscore);
 
-  for(int i = 0; i < 11; i++) {
+  for(int i = 0; i < 10; i++) {
     while(isspace(cur_char)) {
       advance();
     }
@@ -184,12 +185,67 @@ void read_line(table_entry* entry) {
   }
 }
 
+//void sortByField(int field, table_entry* entries, int lo, int hi);
+//int partition(int field, table_entry* entries, int lo, int hi); 
+
+// partition function for quicksort implementation of sortByField
+int partition(int field, table_entry* entries, int lo, int hi)
+{
+  int i = lo+1;
+  int j = hi;
+  float v = entries[lo].u[field];
+  table_entry tmp;
+  while(1) {
+    while (entries[i].u[field] < v) {
+      i = i+1;
+      if (i == hi)
+	break;
+    }
+    while (v < entries[j].u[field]) {
+      j = j - 1;
+      if (j == lo)
+	break;
+    }
+
+    if (i >= j)
+      break;
+    // Swap entries i and j
+    tmp = entries[i];
+    entries[i] = entries[j];
+    entries[j] = tmp; 
+  }
+
+  // Swap entries lo and j
+  tmp = entries[lo];
+  entries[lo] = entries[j];
+  entries[j] = tmp; 
+}
+
+// Sorts the entries according to a field in the u field of the
+// table data
+void sortByField(int field, table_entry* entries, int lo, int hi)
+{
+  if (hi <= lo)
+    return;
+  int j = partition(field, entries, lo, hi);
+  sortByField(field, entries, lo,j-1);
+  sortByField(field, entries, j+1,hi);
+}
+
 int main() {
   table_entry entries[500];
   fp = fopen("AU930_ROAM.TXT", "r");
+  // Ignore first line containing column names
+  while(cur_char != '\n')
+    advance();
+  
+  // Skip whitespace until the table begins
+  while(isspace(cur_char))
+    advance();
   int i = 0;
   while(cur_char != EOF) {
     read_line(entries+i);
+    i = i+1;
   }
 }
   
