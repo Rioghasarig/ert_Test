@@ -1,0 +1,3 @@
+# GIS Conversion
+
+Implemens the GIS2Radar and Radar2GIS functions described. Tests the functions by first using GIS2Radar to compute the range and bearing from an initial position of 37N 75W to a position of 18N 66W and then using the resulting range and bearing as input to Radar2GIS to recompute the final position from the initial position. Getting the final position of 18N 66W is considered a successful run.
