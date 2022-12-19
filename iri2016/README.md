@@ -1,7 +1,7 @@
 # IRI 2016
 
 ## Description
-The International Refrence Ionosphere is a project aimed at producing an empirical standard model of the ionosphere based. For given location, time and data IRI provides various statistics about the ionosphere, such as electron density and temperature. This repository provides a command line interface for accessing this electron density data. 
+The International Reference Ionosphere is a project aimed at producing an empirical standard model of the ionosphere based. For given location, time and data IRI provides various statistics about the ionosphere, such as electron density and temperature. This repository provides a command line interface for accessing this electron density data. 
 
 ## Instructions
 
