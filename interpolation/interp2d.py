@@ -2,14 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 
+
+# Computes an interpolation for a function f:R^2 -> R over a grid from a sample
+# of points with known values. 
 def interp2d(xmin, xmax, nx,
              ymin, ymax, ny,
              xs, ys, zs):
-    # Computes an interpolation for a function across the grid specified by
-    # the ranges xmin, xmax and ymin, ymax with grid dimensions given by nx
-    # and ny. The interpolation satisfies F(xs(i),ys(i)) = zs(i) for each i
-    # It is computed as a linear combination F(u) = sum_i a_i phi_i(u) where
-    # phi_i(u) is the distance between u and the point (xs(i),y(i)).
 
     assert len(xs.shape) == 1, "Inputs must be one-dimensional arrays"
     assert xs.size >= 2, "Interpolation requires at least two points"
