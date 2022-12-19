@@ -3,6 +3,7 @@ import itertools
 def boxfit(container_dims, packages):
     fill_mask = np.zeros(container_dims)
     used = []
+    positions = []
     vol = 0
     for i,package in enumerate(packages):
         for pos in itertools.product(range(0,container_dims[0]),
@@ -25,15 +26,17 @@ def boxfit(container_dims, packages):
                       pos[1]:pos[1]+package[1],
                       pos[2]:pos[2]+package[2]] = 1
             used.append(i)
-            vol = vol + package[0]*package[1]*package[2]
+            positions.append(pos)
+            vol = vol + package[0]*package[1]*package[2]            
             break
             
 
-    return used,(1.0*vol)/(container_dims[0]*container_dims[1]*container_dims[2])
+    return used,positions,(1.0*vol)/(container_dims[0]*container_dims[1]*container_dims[2])
 
 container_dims = [25, 56, 18]
 
-packages = [[1, 1, 1],
+
+packages = [[9, 38, 4],
             [8, 39, 4],
             [8, 39, 4],
             [8, 52, 4],
@@ -44,4 +47,10 @@ packages = [[1, 1, 1],
             [24, 36, 10],
             [21, 39, 7]]
 
-print(boxfit(container_dims, packages))
+
+# Sort the packages from largest to smallest
+packages = sorted(packages, key=lambda x: -1*x[0] * x[1] * x[2])
+used,positions,total_volume = boxfit(container_dims, packages)
+
+for i,pos in zip(used,positions):
+    print(packages[i], ": ", pos)
