@@ -9,4 +9,4 @@ The International Reference Ionosphere is a project aimed at producing an empiri
  2. Move the shared library libiri.so to a folder in the LD_LIBRARY_PATH so the shared library can be found. 
  3. Execute the run-iri program and input the parameters to produce the edp.dat file containing the
     electron density table
- 4. Run gnuplot make_plot.gp to produce the plot as a pdf file
+ 4. Run gnuplot make_plot.gp to produce the plot as a pdf file (plot.pdf)
