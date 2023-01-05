@@ -13,16 +13,30 @@ char* months[] = {"Janurary", "Februrary", "March", "April", "May",
 		"June", "July", "August", "September", "October",
 		"November", "December"};
 
+// Number of days each month has
 int month_days[] = {31, 28, 31, 30, 31, 30, 31, 31, 31, 31, 30, 31};
+
+
+// The default switches to turn false for the jf flags. Ends with -1 to
+// conveniently find end of array without creating a variable for the length
+int false_jf[] = {3,4,5,20,22,27,28,29,32,34,38,39,46,-1};
+
 int main() {
   read_ig_rz_();
   readapf107_();
   int jf[50];
 
+  // Set default flags in JF 
   for(int i = 0; i < 50; i++)
-    jf[i] = 1.0;
+    jf[i] = 1;
+  
+  for(int i = 0; default_jf[i] >= 0; i++)
+    jf[false_jf[i]] = 0;
+
+  // Use geographic coordinates
   int jmag = 0;
 
+  // Get input parameters from user
   int iyyyy, month, day, mmdd;
   float alati, along, dhour;
   float heibeg, heiend, heistp;
