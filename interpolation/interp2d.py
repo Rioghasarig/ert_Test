@@ -4,15 +4,27 @@ import matplotlib.pyplot as plt
 
 
 # Computes an interpolation for a function f:R^2 -> R over a grid from a sample
-# of points with known values. 
+# of points with known values.
+
+# Given a function f: R^2->R and a list of pointx x_1,...,x_n in R^2 and values
+# z_1,...,z_n in R such that f(x_i) = z_i we compute a linear interpolation F
+# that satisfies F(x_i) = z_i. F is computed as a linear combination
+# F(x_i) = Sum_i a_i phi_(x) of functions of the form phi_i(x) = |x-x_i|.
+
+# The coefficients a_i in the above are computed by solving the linear system
+# produced by the equations Sum_i a_i |x_k - x_i| = z_k for k = 1...n
+
+# The inputs x_i and z_i are specified with x_i = (xs[i],ys[i]), z_i = zs[i]
+# Creates an ny x nx  with evaluated coordinates in the range specified by
+# xmin,xmax and ymin,max
+
 def interp2d(xmin, xmax, nx,
              ymin, ymax, ny,
              xs, ys, zs):
-
     assert len(xs.shape) == 1, "Inputs must be one-dimensional arrays"
     assert xs.size >= 2, "Interpolation requires at least two points"
     assert xs.size == ys.size and ys.size == zs.size, \
-        "Inputs must be the same size"
+        "Inputs xs and ys must be the same size"
 
     P = np.transpose(np.array([xs,ys]))
     V = np.linalg.norm(P[None,:,:] - P[:,None,:],axis=-1)
@@ -67,3 +79,4 @@ plt.yticks(ylocs, yticks)
 
 plt.imshow(F)
 plt.show()
+plt.savefig('interpolation.pdf')

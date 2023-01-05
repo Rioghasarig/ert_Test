@@ -130,7 +130,8 @@ int main(int argc, char *argv[]) {
   }
   //Ignore header line
   fgets(line, 1000, fp);
-  fgets(line,1000,fp);
+  fgets(line, 1000, fp);
+  
   // Read each line of the file
   int num_entries = 0;
   while (fgets(line, 1000, fp) != NULL) {
@@ -146,7 +147,7 @@ int main(int argc, char *argv[]) {
   // Output sorted file
   FILE *fp_out;
   fp_out = fopen("sorted_table.txt","w");
-  write_table(fp_out,data,num_entries);
+  write_table(fp_out, data, num_entries);
 
   // Output Median
   printf("Median foF2: %f\n ", data[num_entries/2].foF2);
