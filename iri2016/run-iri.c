@@ -30,7 +30,7 @@ int main() {
   for(int i = 0; i < 50; i++)
     jf[i] = 1;
   
-  for(int i = 0; default_jf[i] >= 0; i++)
+  for(int i = 0; false_jf[i] >= 0; i++)
     jf[false_jf[i]] = 0;
 
   // Use geographic coordinates
